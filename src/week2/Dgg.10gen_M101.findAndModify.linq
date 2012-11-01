@@ -1,4 +1,4 @@
-<Query Kind="Statements">
+<Query Kind="Program">
   <Reference Relative="..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll">D:\projects\Dgg.10gen_M101\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</Reference>
   <Reference Relative="..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll">D:\projects\Dgg.10gen_M101\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll</Reference>
   <Namespace>System.Globalization</Namespace>
@@ -7,16 +7,30 @@
   <Namespace>MongoDB.Driver.Builders</Namespace>
 </Query>
 
-MongoDatabase db = MongoDatabase.Create(new MongoUrl("mongodb://localhost:27017/test?safe=true"));
-MongoCollection<BsonDocument> things = db.GetCollection("things");
+void Main()
+{
+	nextSequenceNumber("uid").Dump();
+	nextSequenceNumber("uid").Dump();
+	nextSequenceNumber("uid").Dump();
+	
+	nextSequenceNumber("other").Dump();
+	nextSequenceNumber("other").Dump();
+}
 
-things.Drop();
-IMongoQuery apple = Query.EQ("thing", "apple"), pear = Query.EQ("thing", "pear");
-things.Update(apple, Update.Set("color", "red"), UpdateFlags.Upsert);
-things.Update(pear, Update.Replace(new{color = "green"}), UpdateFlags.Upsert);
+// Define other methods and classes here
 
-things.FindOne(apple).Dump("apple", 2);
-things.FindOne(pear).Dump("pear", 2);
-
-things.FindAll()
-	.Dump("upserted things", 2);
+private int nextSequenceNumber(string name)
+{
+	MongoDatabase db = MongoDatabase.Create(new MongoUrl("mongodb://localhost:27017/test?safe=true"));
+	MongoCollection<BsonDocument> counters = db.GetCollection("counters");
+	
+	var counter = counters.FindAndModify(
+		Query.EQ("type", name),
+		SortBy.Null,
+		Update.Inc("value", 1),
+		returnNew : true,
+		upsert: true);
+	
+	int counterValue = counter.ModifiedDocument["value"].AsInt32;
+	return counterValue;
+}
