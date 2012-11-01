@@ -1,0 +1,16 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+	Layout = "_foundation.cshtml";
+	ViewBag.Title = "Welcome";
+}
+<div class="row">
+	<div class="eight columns">
+		<h2>Welcome, </h2>
+		<hr />
+		<ul class="four side-nav">
+			<li class="active"><a href="#">Welcome</a></li>
+			<li><a href="/home">Go to Blog Home</a></li>
+			<li><a href="/create">Create a New Post</a></li>
+		</ul>
+	</div>
+</div>

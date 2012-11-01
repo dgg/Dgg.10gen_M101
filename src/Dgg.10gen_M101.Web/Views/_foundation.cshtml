@@ -1,0 +1,52 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en">
+<!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<!-- Set the viewport width to device width for mobile -->
+		<meta name="viewport" content="width=device-width" />
+		<title>@ViewBag.Title</title>
+		<link href="/content/stylesheets/foundation.min.css" rel="stylesheet" type="text/css" />
+		<link href="/content/stylesheets/app.css" rel="stylesheet" type="text/css" />
+		<!-- IE Fix for HTML5 Tags -->
+		<!--[if lt IE 9]>
+					<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+				<![endif]-->
+		<script src="/content/javascripts/modernizr.foundation.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<!-- container -->
+		<div class="row">
+			<div class="twelve columns">
+				<nav class="top-bar">
+					<ul>
+						<li class="name"><h1><a href="/">M101: The Blog</a></h1></li>
+						<li class="toggle-topbar"><a href="#"></a></li>
+					</ul>
+					<section>
+						<ul class="right">
+							<li class="divider show-for-medium-and-up"></li>
+							<li><a href="/login" class="main">Login</a></li>
+							<li><a href="/signup">Signup</a></li>
+							<li><a href="/logout">Logout</a></li>
+						</ul>
+					</section>
+				</nav>
+			</div>
+		</div>
+		<div class="container">
+			@RenderBody()
+		</div>
+		<!-- container -->
+		<script src="/content/javascripts/jquery.js" type="text/javascript"></script>
+		<script src="/content/javascripts/foundation.min.js" type="text/javascript"></script>
+		<script src="/content/javascripts/app.js" type="text/javascript"></script>
+		@RenderSection("Scripts", false)
+	</body>
+</html>

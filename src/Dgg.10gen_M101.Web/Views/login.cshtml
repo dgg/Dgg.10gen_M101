@@ -1,0 +1,32 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+@{
+	Layout = "_foundation.cshtml";
+	ViewBag.Title = "signup";
+}
+<div class="row">
+	<div class="eight columns">
+		<h2>Login</h2>
+		<hr/>
+		<form action="/signup" method="POST">
+			<div class="row">
+				<div class="three mobile-one columns">
+					<label class="right inline">* Username:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="text" placeholder="Username" class="eight" name="username" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="three mobile-one columns">
+					<label class="right inline">* Password:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="password" class="four" name="password" placeholder="Password"/>
+				</div>
+			</div>
+			<div class="row nine">
+				<input type="submit" class="button secondary right" value="Submit" />	
+			</div>
+		</form>
+	</div>
+</div>
