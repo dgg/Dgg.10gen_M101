@@ -32,9 +32,17 @@
 					<section>
 						<ul class="right">
 							<li class="divider show-for-medium-and-up"></li>
-							<li><a href="/login" class="main">Login</a></li>
-							<li><a href="/signup">Signup</a></li>
-							<li><a href="/logout">Logout</a></li>
+							@if (!ViewBag.IsAuthenticated)
+							{
+								<li><a href="/login" class="main">Login</a></li>
+								<li><a href="/signup">Signup</a></li>
+							}
+							else
+							{
+								<li><a>Hi, @ViewBag.UserName</a></li>
+								<li class="divider"></li>
+								<li><a href="/logout">Logout</a></li>
+							}
 						</ul>
 					</section>
 				</nav>

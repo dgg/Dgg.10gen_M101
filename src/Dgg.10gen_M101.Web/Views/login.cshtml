@@ -7,13 +7,13 @@
 	<div class="eight columns">
 		<h2>Login</h2>
 		<hr/>
-		<form action="/signup" method="POST">
+		<form action="/login" method="POST">
 			<div class="row">
 				<div class="three mobile-one columns">
 					<label class="right inline">* Username:</label>
 				</div>
 				<div class="nine mobile-three columns">
-					<input type="text" placeholder="Username" class="eight" name="username" />
+					<input type="text" placeholder="Username" class="eight" name="username"  value="@Model.UserName"/>
 				</div>
 			</div>
 			<div class="row">
@@ -24,7 +24,7 @@
 					<input type="password" class="four" name="password" placeholder="Password"/>
 				</div>
 			</div>
-			<div class="row nine">
+			<div class="row nine mobile-one">
 				<input type="submit" class="button secondary right" value="Submit" />	
 			</div>
 		</form>
