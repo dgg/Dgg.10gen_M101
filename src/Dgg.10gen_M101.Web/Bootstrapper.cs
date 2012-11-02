@@ -20,7 +20,7 @@ namespace Dgg._10gen_M101.Web
 		{
 			base.ConfigureRequestContainer(container, context);
 
-			//container.Register<IUserMapper, UsersDb>();
+			//container.Register<IUserMapper, UserMapper>();
 		}
 
 		protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)

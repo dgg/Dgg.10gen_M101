@@ -5,11 +5,11 @@ using Nancy.Security;
 
 namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 {
-	public class UsersDb : IUserMapper
+	public class UserMapper : IUserMapper
 	{
-		private readonly IUsers _users;
+		private readonly IUsersDb _users;
 
-		public UsersDb(IUsers users)
+		public UserMapper(IUsersDb users)
 		{
 			_users = users;
 		}
@@ -18,11 +18,5 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 		{
 			return context.CurrentUser ?? new UserIdentity { UserName = "userName" };
 		}
-
-		public static bool Authenticate(Models.Login login)
-		{
-			return login.UserName.Equals("DGG", StringComparison.OrdinalIgnoreCase);
-		}
-
 	}
 }

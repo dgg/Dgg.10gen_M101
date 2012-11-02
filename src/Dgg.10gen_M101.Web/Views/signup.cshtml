@@ -1,4 +1,5 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+﻿@using Dgg._10gen_M101.Web.Views
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
 @{
 	Layout = "_foundation.cshtml";
 	ViewBag.Title = "signup";
@@ -8,23 +9,25 @@
 		<h2>Signup</h2>
 		<hr/>
 		<form action="/signup" method="POST">
-			<div class="row">
+			<div class="row @Html.Error("username")">
 				<div class="three mobile-one columns">
 					<label class="right inline">* Username:</label>
 				</div>
 				<div class="nine mobile-three columns">
-					<input type="text" placeholder="Username" class="eight" name="username" />
+					<input type="text" placeholder="Username" class="eight" name="username" value="@Model.UserName"/>
+					@Html.Errors("eight", "username")
 				</div>
 			</div>
-			<div class="row">
+			<div class="row @Html.Error("password")">
 				<div class="three mobile-one columns">
 					<label class="right inline">* Password:</label>
 				</div>
 				<div class="nine mobile-three columns">
 					<input type="password" class="four" name="password" placeholder="Password"/>
+					@Html.Errors("eight", "password")
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" @Html.Error("password")>
 				<div class="three mobile-one columns">
 					<label class="right inline">* Verify password:</label>
 				</div>
@@ -37,7 +40,7 @@
 					<label class="right inline">Email:</label>
 				</div>
 				<div class="nine mobile-three columns">
-					<input type="email" class="eight" name="email" placeholder="Email"/>
+					<input type="email" class="eight" name="email" placeholder="Email" value="@Model.Email"/>
 				</div>
 			</div>
 			<div class="row nine">

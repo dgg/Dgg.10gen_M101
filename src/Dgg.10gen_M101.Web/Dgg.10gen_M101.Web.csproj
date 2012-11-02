@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlTags">
+      <HintPath>..\..\packages\HtmlTags.1.2.0.126\lib\4.0\HtmlTags.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</HintPath>
@@ -53,6 +56,7 @@
       <HintPath>..\..\packages\Nancy.Viewengines.Razor.0.12.1\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -105,6 +109,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthModule.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -112,12 +117,15 @@
     <Compile Include="HelloModule.cs" />
     <Compile Include="hw1_3.cs" />
     <Compile Include="BlogModule.cs" />
+    <Compile Include="Infrastructure\Authentication\PasswordHasher.cs" />
     <Compile Include="Infrastructure\Authentication\UserIdentity.cs" />
     <Compile Include="Infrastructure\Authentication\Users.cs" />
+    <Compile Include="Infrastructure\Validation\ValidationResults.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Signup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Authentication\UsersDb.cs" />
+    <Compile Include="Infrastructure\Authentication\UserMapper.cs" />
+    <Compile Include="Views\HtmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

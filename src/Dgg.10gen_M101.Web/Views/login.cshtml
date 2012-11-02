@@ -1,4 +1,5 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+﻿@using Dgg._10gen_M101.Web.Views
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
 @{
 	Layout = "_foundation.cshtml";
 	ViewBag.Title = "signup";
@@ -8,12 +9,13 @@
 		<h2>Login</h2>
 		<hr/>
 		<form action="/login" method="POST">
-			<div class="row">
+			<div class="row @Html.Error("username")">
 				<div class="three mobile-one columns">
 					<label class="right inline">* Username:</label>
 				</div>
 				<div class="nine mobile-three columns">
 					<input type="text" placeholder="Username" class="eight" name="username"  value="@Model.UserName"/>
+					@Html.Errors("eight", "username")
 				</div>
 			</div>
 			<div class="row">
