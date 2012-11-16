@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Security;
@@ -16,7 +17,11 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 
 		public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
 		{
-			return context.CurrentUser ?? new UserIdentity { UserName = "userName" };
+			if (context.CurrentUser != null) return context.CurrentUser;
+
+			string userName = _users.UserNameFromSession(identifier);
+			IEnumerable<string> claims = new[] { identifier.ToString() };
+			return userName != null ? new UserIdentity { UserName = userName, Claims = claims } : null;
 		}
 	}
 }

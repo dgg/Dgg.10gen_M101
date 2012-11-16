@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Dgg._10gen_M101.Web.Infrastructure.Authentication;
 using Dgg._10gen_M101.Web.Infrastructure.Validation;
 using Dgg._10gen_M101.Web.Models;
@@ -38,9 +39,16 @@ namespace Dgg._10gen_M101.Web
 					login.Errors = new ValidationResults(new ValidationResult("Invalid Login", new[] { "userName" }));
 					return View["login", login];
 				}
-				return this.LoginAndRedirect(Guid.NewGuid(), fallbackRedirectUrl: "/welcome");
+				Guid sessionId = users.StartSession(login);
+				return this.LoginAndRedirect(sessionId, fallbackRedirectUrl: "/welcome");
 			};
-			Get["/logout"] = _ => this.LogoutAndRedirect("/");
+			Get["/logout"] = _ =>
+			{
+				var sessionClaim = Context.CurrentUser.Claims.First();
+				Guid sessionId = Guid.Parse(sessionClaim);
+				users.EndSession(sessionId);
+				return this.LogoutAndRedirect("/");
+			};
 		}
 	}
 }

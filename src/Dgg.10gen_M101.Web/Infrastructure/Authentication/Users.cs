@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -9,6 +10,10 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 	{
 		bool Authenticate(Models.Login login);
 		bool Signup(Models.Signup signup);
+		string UserKey { get; }
+		Guid StartSession(Models.Login login);
+		void EndSession(Guid sessionId);
+		string UserNameFromSession(Guid sessionId);
 	}
 
 	public class UsersDb : IUsersDb
@@ -23,7 +28,7 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 		public bool Authenticate(Models.Login login)
 		{
 			bool authenticated = false;
-			
+
 			var users = _blogDb.GetCollection<BsonDocument>("users");
 
 			var user = users.FindOne(Query.EQ("_id", login.UserName));
@@ -33,6 +38,32 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 				authenticated = user["password"].AsString.Equals(hashed);
 			}
 			return authenticated;
+		}
+
+		public Guid StartSession(Models.Login login)
+		{
+			var sessions = _blogDb.GetCollection<BsonDocument>("sessions");
+			Guid sessionId = Guid.NewGuid();
+			sessions.Insert(new
+			{
+				_id = sessionId,
+				userName = login.UserName
+			});
+
+			return sessionId;
+		}
+
+		public void EndSession(Guid sessionId)
+		{
+			var sessions = _blogDb.GetCollection<BsonDocument>("sessions");
+			sessions.Remove(Query.EQ("_id", sessionId));
+		}
+
+		public string UserNameFromSession(Guid sessionId)
+		{
+			var sessions = _blogDb.GetCollection<BsonDocument>("sessions");
+			var session = sessions.FindOne(Query.EQ("_id", sessionId));
+			return session != null ? session["userName"].AsString : null;
 		}
 
 		public bool Signup(Models.Signup signup)
@@ -56,5 +87,7 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Authentication
 			}
 			return created;
 		}
+
+		public string UserKey { get { return "userName"; } }
 	}
 }

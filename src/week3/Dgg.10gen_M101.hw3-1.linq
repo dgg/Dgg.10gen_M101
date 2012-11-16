@@ -48,11 +48,6 @@ public class Score
 
 public static class MoreEnumerable
 {
-	public static  void ForEach<T>(this IEnumerable<T> source, Action<T> action)
-	{
-		foreach (var s in source) action(s);
-	}
-
 	public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
 			Func<TSource, TKey> selector)
 	{
