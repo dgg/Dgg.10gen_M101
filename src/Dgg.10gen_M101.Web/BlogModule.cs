@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Dgg._10gen_M101.Web.Infrastructure.Data;
 using Dgg._10gen_M101.Web.Infrastructure.Validation;
@@ -31,9 +30,15 @@ namespace Dgg._10gen_M101.Web
 					post.Errors = new ValidationResults(results);
 					return View["newpost", post];
 				}
-				
-				string permalink = db.Create(post, Context.CurrentUser.UserName, DateTime.UtcNow);
-				return View["/post/" + permalink];
+
+				Post toCreate = Models.Post.New(post, Context.CurrentUser.UserName);
+				db.Create(toCreate);
+				return Response.AsRedirect("/post/" + toCreate.Permalink);
+			};
+			Get["/post/{permalink}"] = model =>
+			{
+				Post entry = db.Get(model.permalink);
+				return View["entry", entry];
 			};
 		}
 	}

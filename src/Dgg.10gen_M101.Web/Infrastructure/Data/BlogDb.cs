@@ -1,8 +1,7 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using Dgg._10gen_M101.Web.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace Dgg._10gen_M101.Web.Infrastructure.Data
 {
@@ -15,22 +14,16 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Data
 			_blogDb = MongoDatabase.Create(mongoUrl);
 		}
 
-		public string Create(NewPost post, string author, DateTime utcNow)
+		public void Create(Post post)
 		{
-			string permaLink = post.GeneratePermaLink();
-			var doc = new BsonDocument
-			{
-				{"title", post.Title},
-				{"author", author},
-				{"body", post.Bodify()}, 
-				{"permalink", permaLink},
-				{"tags", new BsonArray(post.Taggify())},
-				{"date", utcNow}
-			};
+			var posts = _blogDb.GetCollection<Post>("posts");
+			posts.Insert(post);
+		}
 
-			var posts = _blogDb.GetCollection<BsonDocument>("posts");
-			posts.Insert(doc);
-			return permaLink;
+		public Post Get(string permalink)
+		{
+			var posts = _blogDb.GetCollection<Post>("posts");
+			return posts.FindOne(Query<Post>.EQ(p => p.Permalink, permalink));
 		}
 	}
 }

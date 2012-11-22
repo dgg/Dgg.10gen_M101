@@ -1,4 +1,4 @@
-﻿using Dgg._10gen_M101.Web.Infrastructure.Authentication;
+﻿using MongoDB.Bson.Serialization.Conventions;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
@@ -8,19 +8,12 @@ namespace Dgg._10gen_M101.Web
 {
 	public class Bootstrapper : DefaultNancyBootstrapper
 	{
-		protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+		protected override void ConfigureConventions(Nancy.Conventions.NancyConventions nancyConventions)
 		{
-			// We don't call "base" here to prevent auto-discovery of
-			// types/dependencies
-			base.ConfigureApplicationContainer(container);
-			
-		}
-
-		protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
-		{
-			base.ConfigureRequestContainer(container, context);
-
-			//container.Register<IUserMapper, UserMapper>();
+			base.ConfigureConventions(nancyConventions);
+			var profile = new ConventionProfile();
+			profile.SetElementNameConvention(new CamelCaseElementNameConvention());
+			MongoDB.Bson.Serialization.BsonClassMap.RegisterConventions(profile, _ => true);
 		}
 
 		protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)

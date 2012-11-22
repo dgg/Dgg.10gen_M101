@@ -1,0 +1,30 @@
+﻿@using Dgg._10gen_M101.Web.Views
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Dgg._10gen_M101.Web.Models.Post>
+@{
+	Layout = "_foundation.cshtml";
+	ViewBag.Title = "Blog Post";
+}
+<div class="row">
+	<div class="eight columns">
+		<h2>@Model.Title</h2>
+		Posted @Model.Date.ToShortDateString() by @Model.Author
+		<hr />
+		<p>@Html.Raw(Model.Body)</p>
+		<p>
+			<em>File under</em>:&nbsp;@Model.Taggify()
+		</p>
+		<p>Comments:
+			<ul>
+				@foreach(var comment in Model.Comments ?? new Dgg._10gen_M101.Web.Models.Comment[0])
+				{
+					<li>
+						Author: @comment.Author<br />
+						@comment.Body
+					</li>
+				}
+			</ul>
+			<h3>Add a comment</h3>
+		</p>
+		
+	</div>
+</div>
