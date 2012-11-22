@@ -1,0 +1,44 @@
+﻿@using Dgg._10gen_M101.Web.Views
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Dgg._10gen_M101.Web.Models.NewPost>
+@{
+	Layout = "_foundation.cshtml";
+	ViewBag.Title = "Create New Post";
+}
+<div class="row">
+	<div class="eight columns">
+		<h2>New Post</h2>
+		<hr/>
+		<form action="/newpost" method="POST">
+			<div class="row @Html.Error("title")">
+				<div class="three mobile-one columns">
+					<label class="right inline">* Title:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="text" placeholder="Title" class="eight" name="title" value="@Model.Title"/>
+					@Html.Errors("eight", "title")
+				</div>
+			</div>
+			<div class="row @Html.Error("body")">
+				<div class="three mobile-one columns">
+					<label class="right inline">* Body:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<textarea class="six" name="body" placeholder="Body" cols="120" rows="20">@Model.Body</textarea>
+					@Html.Errors("eight", "body")
+				</div>
+			</div>
+			<div class="row @Html.Error("tags")">
+				<div class="three mobile-one columns">
+					<label class="right inline">Tags:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="text" class="eight" name="tags" placeholder="Tags (comma separated)"/>
+					@Html.Errors("eight", "tags")
+				</div>
+			</div>
+			<div class="row nine">
+				<input type="submit" class="button secondary right" value="Submit" />	
+			</div>
+		</form>
+	</div>
+</div>

@@ -117,10 +117,15 @@
     <Compile Include="HelloModule.cs" />
     <Compile Include="hw1_3.cs" />
     <Compile Include="BlogModule.cs" />
+    <Compile Include="Infrastructure\Authentication\IUsersDb.cs" />
     <Compile Include="Infrastructure\Authentication\PasswordHasher.cs" />
     <Compile Include="Infrastructure\Authentication\UserIdentity.cs" />
-    <Compile Include="Infrastructure\Authentication\Users.cs" />
+    <Compile Include="Infrastructure\Authentication\UsersDb.cs" />
+    <Compile Include="Infrastructure\Data\BlogDb.cs" />
+    <Compile Include="Infrastructure\Data\IBlogDb.cs" />
     <Compile Include="Infrastructure\Validation\ValidationResults.cs" />
+    <Compile Include="Models\IValidatable.cs" />
+    <Compile Include="Models\NewPost.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Signup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\newpost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

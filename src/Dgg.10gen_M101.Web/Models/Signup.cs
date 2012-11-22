@@ -2,7 +2,7 @@
 
 namespace Dgg._10gen_M101.Web.Models
 {
-	public class Signup
+	public class Signup : IValidatable
 	{
 		public Signup()
 		{

@@ -2,7 +2,7 @@ using Dgg._10gen_M101.Web.Infrastructure.Validation;
 
 namespace Dgg._10gen_M101.Web.Models
 {
-	public class Login
+	public class Login : IValidatable
 	{
 		public Login()
 		{
