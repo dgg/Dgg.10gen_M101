@@ -1,0 +1,42 @@
+﻿@using Dgg._10gen_M101.Web.Views
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Dgg._10gen_M101.Web.Models.NewComment>
+@{
+	ViewBag.Title = "Create New Comment";
+}
+<div class="row">
+	<div class="eight columns">
+		<h2>New Comment</h2>
+		<hr />
+		<form action="/newcomment?post=@ViewBag.permalink" method="POST">
+			<div class="row @Html.Error("name")">
+				<div class="three mobile-one columns">
+					<label class="right inline">* Name:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="text" placeholder="Name" class="eleven" name="name" value="@Model.Name"/>
+					@Html.Errors("eleven", "name")
+				</div>
+			</div>
+			<div class="row @Html.Error("email")">
+				<div class="three mobile-one columns">
+					<label class="right inline">Email:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<input type="text" class="eleven" name="email" placeholder="Email" value="@Model.Email"/>
+					@Html.Errors("eleven", "email")
+				</div>
+			</div>
+			<div class="row @Html.Error("body")">
+				<div class="three mobile-one columns"><label class="right inline">Comment:</label>
+				</div>
+				<div class="nine mobile-three columns">
+					<textarea class="eleven" name="body" placeholder="Body" cols="120" rows="20">@Model.Body</textarea>
+					@Html.Errors("eight", "body")
+				</div>
+			</div>
+			<div class="row nine">
+				<input type="submit" class="button secondary right" value="Submit" />
+			</div>
+		</form>
+	</div>
+</div>

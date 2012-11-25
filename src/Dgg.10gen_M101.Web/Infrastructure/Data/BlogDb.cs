@@ -25,5 +25,14 @@ namespace Dgg._10gen_M101.Web.Infrastructure.Data
 			var posts = _blogDb.GetCollection<Post>("posts");
 			return posts.FindOne(Query<Post>.EQ(p => p.Permalink, permalink));
 		}
+
+		public void Create(Comment comment, string permalink)
+		{
+			var posts = _blogDb.GetCollection<Post>("posts");
+
+			posts.Update(
+				Query<Post>.EQ(p => p.Permalink, permalink), 
+				Update<Post>.AddToSet(p => p.Comments, comment));
+		}
 	}
 }

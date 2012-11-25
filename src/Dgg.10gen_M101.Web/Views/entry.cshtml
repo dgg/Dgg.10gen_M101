@@ -23,8 +23,24 @@
 					</li>
 				}
 			</ul>
-			<h3>Add a comment</h3>
-		</p>
-		
+			<a href="/newcomment?post=@Model.Permalink" class="button reveal">Add a comment</a>
+		</p>		
 	</div>
 </div>
+
+@section Scripts
+{
+	<script type="text/javascript">
+		$(function () {
+			$('a.reveal').click(function (event) {
+				event.preventDefault();
+				var $div = $('<div>').addClass('reveal-modal').appendTo('body'),
+				$this = $(this);
+				$.get($this.attr('href'), function (data) {
+					return $div.empty().html(data).append('<a class="close-reveal-modal">&#215;</a>').reveal();
+				});
+			});
+		});
+	</script>
+}
+

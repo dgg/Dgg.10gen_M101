@@ -126,6 +126,7 @@
     <Compile Include="Infrastructure\Validation\ValidationResults.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IValidatable.cs" />
+    <Compile Include="Models\NewComment.cs" />
     <Compile Include="Models\NewPost.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Post.cs" />
@@ -160,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\entry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\newcomment.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -40,6 +40,19 @@ namespace Dgg._10gen_M101.Web
 				Post entry = db.Get(model.permalink);
 				return View["entry", entry];
 			};
+			Get["/newcomment"] = _ =>
+			{
+				ViewBag.permalink = Request.Query.post;
+				return View["newcomment", new NewComment()];
+			};
+			Post["/newcomment"] = model =>
+			{
+				var comment = this.Bind<NewComment>();
+				string permalink = Request.Query.post;
+				Comment toCreate = Comment.New(comment);
+				db.Create(toCreate, permalink);
+				return Response.AsRedirect("/post/" + permalink);
+			};
 		}
 	}
 }

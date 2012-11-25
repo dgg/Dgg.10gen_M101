@@ -13,7 +13,7 @@ namespace Dgg._10gen_M101.Web.Models
 		public string[] Tags { get; set; }
 		public Comment[] Comments { get; set; }
 		public DateTime Date { get; set; }
-
+		
 		public static Post New(NewPost post, string author)
 		{
 			return new Post
@@ -23,7 +23,8 @@ namespace Dgg._10gen_M101.Web.Models
 				Body = post.Bodify(),
 				Tags = post.Taggify(),
 				Date = DateTime.UtcNow,
-				Permalink = post.GeneratePermaLink()
+				Permalink = post.GeneratePermaLink(),
+				Comments = new Comment[0]
 			};
 		}
 
